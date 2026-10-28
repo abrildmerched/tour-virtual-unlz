@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@import "@fontsource/poppins/400.css";
+@import "@fontsource/poppins/700.css";
+@import "@fontsource/archivo-black/400.css";
+@import "@fontsource/archivo-narrow/700.css";
+
+/* Zurich es una fuente licenciada: colocar los archivos en /fonts.
+   Mientras tanto se usan fuentes de reemplazo de peso similar (Archivo). */
+@font-face {
+  font-family: 'Zurich Extra Black BT';
+  src: url('/fonts/ZurichExtraBlackBT.woff2') format('woff2');
+  font-weight: 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Zurich Cn BT';
+  src: url('/fonts/ZurichCnBT-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+
+.f-title {
+  font-family: 'Zurich Extra Black BT', 'Archivo Black', Impact, sans-serif;
+  font-weight: 900;
+}
+.f-cn {
+  font-family: 'Zurich Cn BT', 'Archivo Narrow', 'Arial Narrow', sans-serif;
+  font-weight: 700;
+}
+.f-ui {
+  font-family: 'Poppins', sans-serif;
+}
+
+@keyframes kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.12);
+  }
+}
+.kenburns {
+  animation: kenburns 18s ease-out forwards;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.rise {
+  opacity: 0;
+  animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+@keyframes grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.grow {
+  transform-origin: left;
+  animation: grow 0.9s 0.1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kenburns,
+  .rise,
+  .grow {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+html,
+body,
+#root {
+  height: 100dvh;
+}
+
+body {
+  margin: 0;
+}
