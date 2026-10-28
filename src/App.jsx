@@ -53,7 +53,7 @@ export default function App() {
   };
 
   return (
-    <div className="f-ui relative w-full h-[100dvh] overflow-hidden bg-black text-white">
+    <div className="f-ui relative w-full min-h-[100dvh] bg-black text-white">
       {/* FONDOS */}
       {backgrounds.map((src, i) => (
         <div
@@ -78,7 +78,7 @@ export default function App() {
       {/* FRANJA LATERAL AZUL - REMOVIDA */}
 
       {/* HEADER */}
-      <header className="absolute top-0 left-0 w-full z-50 px-4 sm:px-6 md:px-12 lg:px-16 pt-6 sm:pt-8 md:pt-10">
+      <header className="sticky top-0 left-0 w-full z-50 px-4 sm:px-6 md:px-12 lg:px-16 pt-4 sm:pt-6 md:pt-8 pb-4 bg-gradient-to-b from-black/70 via-black/40 to-transparent">
         <div className="flex items-start justify-between">
           <div className="min-h-[44px]">
             {step > 0 && (
@@ -125,7 +125,7 @@ export default function App() {
       </header>
 
       {/* CONTENIDO */}
-      <main className="relative z-10 w-full h-[100dvh] flex items-end md:items-center px-4 sm:px-6 md:px-10 lg:px-16 pb-12 sm:pb-16 md:pb-0 pt-52 sm:pt-56 md:pt-60 overflow-y-auto overflow-x-hidden">
+      <main className="relative z-10 w-full min-h-[100dvh] flex items-end md:items-center px-4 sm:px-6 md:px-10 lg:px-16 pb-16 sm:pb-20 md:pb-0 pt-6 sm:pt-8 md:pt-12 overflow-x-hidden">
         <div key={step} className="w-full max-w-6xl mx-auto">
 
           {/* PASO 0 */}
@@ -134,9 +134,9 @@ export default function App() {
               <p className="f-cn rise text-sm sm:text-base md:text-xl uppercase tracking-[0.25em] sm:tracking-[0.3em] mb-4 sm:mb-6 inline-block bg-[#113bb0] text-white px-3 py-1" style={rise(0)}>
                 Ciencias Sociales · UNLZ
               </p>
-              <h1 className="f-title rise text-4xl sm:text-6xl md:text-9xl uppercase leading-[0.9] mb-6 sm:mb-8" style={rise(120)}>
+              <h1 className="f-title rise text-4xl sm:text-6xl md:text-9xl uppercase leading-[1.05] sm:leading-[1.0] md:leading-[0.95] mb-6 sm:mb-8" style={rise(120)}>
                 Tu futuro<br />
-                empieza <span className="bg-white text-[#113bb0] px-2 sm:px-3 inline-block">acá</span>
+                empieza <span className="bg-white text-[#113bb0] px-2 sm:px-4 py-0.5 inline-block leading-[1.15]">acá</span>
               </h1>
               <div className="grow h-1 w-16 sm:w-24 mb-6 sm:mb-8 mx-auto md:mx-0" style={{ backgroundColor: '#fff' }} />
               <p className="f-ui rise font-normal text-base sm:text-lg md:text-xl max-w-xl mb-8 sm:mb-12 leading-relaxed mx-auto md:mx-0" style={rise(280)}>
@@ -157,9 +157,9 @@ export default function App() {
                 <p className="f-cn rise text-sm sm:text-base md:text-xl uppercase tracking-[0.25em] sm:tracking-[0.3em] mb-4 sm:mb-6 inline-block bg-[#113bb0] text-white px-3 py-1" style={rise(0)}>
                   Paso 01 · El predio
                 </p>
-                <h2 className="f-title rise text-4xl sm:text-5xl md:text-7xl uppercase leading-[0.95] mb-4 sm:mb-6" style={rise(100)}>
+                <h2 className="f-title rise text-4xl sm:text-5xl md:text-7xl uppercase leading-[1.05] sm:leading-[1.0] md:leading-[0.95] mb-4 sm:mb-6" style={rise(100)}>
                   Llegamos<br />
-                  al <span className="bg-white text-[#113bb0] px-2 sm:px-3 inline-block">predio</span>
+                  al <span className="bg-white text-[#113bb0] px-2 sm:px-4 py-0.5 inline-block leading-[1.15]">predio</span>
                 </h2>
                 <p className="f-ui rise font-normal text-base sm:text-lg md:text-xl mb-6 sm:mb-10 max-w-md mx-auto md:mx-0 leading-relaxed" style={rise(220)}>
                   ¿Sabías que somos la primera universidad del conurbano bonaerense?
@@ -200,9 +200,9 @@ export default function App() {
               <p className="f-cn rise text-sm sm:text-base md:text-xl uppercase tracking-[0.25em] sm:tracking-[0.3em] mb-6 sm:mb-8 inline-block bg-[#113bb0] text-white px-3 py-1" style={rise(0)}>
                 Paso 02 · Sociales
               </p>
-              <h2 className="f-title rise text-4xl sm:text-6xl md:text-8xl uppercase leading-[0.92] mb-6 sm:mb-10" style={rise(100)}>
+              <h2 className="f-title rise text-4xl sm:text-6xl md:text-8xl uppercase leading-[1.05] sm:leading-[1.0] md:leading-[0.95] mb-6 sm:mb-10" style={rise(100)}>
                 Facultad de<br />
-                <span className="bg-white text-[#113bb0] px-2 sm:px-3 inline-block">Ciencias Sociales</span>
+                <span className="bg-white text-[#113bb0] px-2 sm:px-4 py-0.5 inline-block leading-[1.15]">Ciencias Sociales</span>
               </h2>
               <p className="f-ui rise font-normal text-base sm:text-lg md:text-xl max-w-xl mb-10 sm:mb-14 leading-relaxed mx-auto" style={rise(220)}>
                 Acá vas a encontrar carreras pensadas para transformar la realidad. ¿Entramos?
@@ -218,21 +218,21 @@ export default function App() {
           {/* PASO 3 */}
           {step === 3 && (
             <div className="flex flex-col gap-6 md:gap-10">
-              <div className={`text-center md:text-left ${selectedCareer ? 'hidden md:block' : ''}`}>
+              <div className={`text-center w-full ${selectedCareer ? 'hidden md:block' : ''}`}>
                 <p className="f-cn rise text-sm sm:text-base md:text-xl uppercase tracking-[0.25em] sm:tracking-[0.3em] mb-4 sm:mb-6 inline-block bg-[#113bb0] text-white px-3 py-1" style={rise(0)}>
                   Paso 03 · El aula
                 </p>
-                <h2 className="f-title rise text-4xl sm:text-5xl md:text-7xl uppercase leading-[0.95] mb-3 sm:mb-5" style={rise(100)}>
+                <h2 className="f-title rise text-4xl sm:text-5xl md:text-7xl uppercase leading-[1.05] sm:leading-[1.0] md:leading-[0.95] mb-3 sm:mb-5" style={rise(100)}>
                   ¡Llegaste<br />
-                  al <span className="bg-white text-[#113bb0] px-2 sm:px-3 inline-block">aula</span>!
+                  al <span className="bg-white text-[#113bb0] px-2 sm:px-4 py-0.5 inline-block leading-[1.15]">aula</span>!
                 </h2>
                 <p className="f-ui rise font-normal text-base sm:text-lg mb-2 sm:mb-4" style={rise(200)}>
                   Seleccioná la carrera que más te interese.
                 </p>
               </div>
 
-              <div className={`grid grid-cols-1 ${selectedCareer ? 'md:grid-cols-1' : 'md:grid-cols-2'} gap-6 md:gap-10 items-start`}>
-                <div className={`${selectedCareer ? 'hidden md:block' : ''}`}>
+              <div className={`grid grid-cols-1 ${selectedCareer ? 'md:grid-cols-1' : 'md:grid-cols-2'} gap-6 md:gap-10 items-start justify-items-center w-full`}>
+                <div className={`${selectedCareer ? 'hidden md:block' : ''} mx-auto w-full md:w-auto`}>
                   <ul className="rise flex flex-col w-full md:w-96 max-h-[32dvh] sm:max-h-[38dvh] md:max-h-[50dvh] overflow-y-auto shadow-lg" style={rise(300)}>
                     {carreras.map((carrera, i) => {
                       const active = selectedCareerId === carrera.id;
@@ -265,7 +265,7 @@ export default function App() {
                 {selectedCareer && (
                   <article
                     key={selectedCareer.id}
-                    className="rise bg-white text-[#1c1d1f] p-5 sm:p-6 md:p-10 border-t-4 border-[#113bb0] max-h-[74dvh] sm:max-h-[72dvh] md:max-h-[60dvh] overflow-y-auto shadow-xl mx-auto w-full max-w-2xl md:max-w-3xl"
+                    className="rise bg-white text-[#1c1d1f] p-5 sm:p-6 md:p-10 border-t-4 border-[#113bb0] shadow-xl mx-auto w-full max-w-2xl md:max-w-3xl"
                     style={rise(0)}
                   >
                     <h3 className="f-title text-2xl sm:text-3xl md:text-4xl uppercase leading-tight mb-2">{selectedCareer.nombre}</h3>
@@ -283,15 +283,17 @@ export default function App() {
                         ))}
                     </div>
                     {selectedCareer.perfil.length > 1 && (
-                      <button
-                        onClick={() => setShowFullPerfil((v) => !v)}
-                        className="f-ui font-bold uppercase tracking-widest text-xs rounded-none border border-[#1c1d1f] bg-transparent text-[#1c1d1f] px-3 sm:px-4 py-2 sm:py-3 inline-flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 transition-colors duration-300 hover:bg-[#1c1d1f] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1c1d1f]"
-                      >
-                        <i className={`fa-solid ${showFullPerfil ? 'fa-chevron-up' : 'fa-chevron-down'}`} aria-hidden="true"></i>
-                        {showFullPerfil ? 'Ver menos' : 'Ver perfil completo'}
-                      </button>
+                      <div className="flex justify-center md:justify-start">
+                        <button
+                          onClick={() => setShowFullPerfil((v) => !v)}
+                          className="f-ui font-bold uppercase tracking-widest text-xs rounded-none border border-[#1c1d1f] bg-transparent text-[#1c1d1f] px-3 sm:px-4 py-2 sm:py-3 inline-flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 transition-colors duration-300 hover:bg-[#1c1d1f] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1c1d1f]"
+                        >
+                          <i className={`fa-solid ${showFullPerfil ? 'fa-chevron-up' : 'fa-chevron-down'}`} aria-hidden="true"></i>
+                          {showFullPerfil ? 'Ver menos' : 'Ver perfil completo'}
+                        </button>
+                      </div>
                     )}
-                    <div className="flex flex-wrap justify-center md:justify-start gap-2 sm:gap-3">
+                    <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
                       <button
                         onClick={() => {
                           setSelectedCareerId(null);
@@ -322,9 +324,9 @@ export default function App() {
                 <p className="f-cn rise text-sm sm:text-base md:text-xl uppercase tracking-[0.25em] sm:tracking-[0.3em] mb-4 sm:mb-6 inline-block bg-[#113bb0] text-white px-3 py-1" style={rise(0)}>
                   Paso 05 · Animarse
                 </p>
-                <h2 className="f-title rise text-4xl sm:text-5xl md:text-7xl uppercase leading-[0.95] mb-4 sm:mb-6" style={rise(100)}>
+                <h2 className="f-title rise text-4xl sm:text-5xl md:text-7xl uppercase leading-[1.05] sm:leading-[1.0] md:leading-[0.95] mb-4 sm:mb-6" style={rise(100)}>
                   ¡Dale,<br />
-                  <span className="bg-white text-[#113bb0] px-2 sm:px-3 inline-block">empezá</span> hoy
+                  <span className="bg-white text-[#113bb0] px-2 sm:px-4 py-0.5 inline-block leading-[1.15]">empezá</span> hoy
                 </h2>
                 <p className="f-ui rise font-normal text-base sm:text-lg max-w-md mx-auto leading-relaxed" style={rise(220)}>
                   Tu futuro en Ciencias Sociales te espera. Completá el formulario y acercate un paso más a formar parte de la UNLZ.
