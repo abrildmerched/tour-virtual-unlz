@@ -53,13 +53,13 @@ export default function App() {
   };
 
   return (
-    <div className="f-ui relative w-full min-h-[100dvh] bg-black text-white">
+    <div className="f-ui relative w-full h-[100dvh] overflow-hidden bg-black text-white">
       {/* FONDOS */}
       {backgrounds.map((src, i) => (
         <div
           key={src + i}
           aria-hidden="true"
-          className={`absolute inset-0 transition-opacity duration-1000 ${i === step ? 'opacity-100' : 'opacity-0'}`}
+          className={`fixed inset-0 transition-opacity duration-1000 ${i === step ? 'opacity-100' : 'opacity-0'}`}
         >
           <img
             key={i === step ? `on-${step}` : `off-${i}`}
@@ -72,13 +72,11 @@ export default function App() {
           />
         </div>
       ))}
-      <div className="absolute inset-0 bg-black/60 z-0" />
-      <div className="absolute inset-0 z-0 bg-gradient-to-t from-[#113bb0]/80 via-[#113bb0]/25 to-transparent" />
-
-      {/* FRANJA LATERAL AZUL - REMOVIDA */}
+      <div className="fixed inset-0 bg-black/60 z-[1]" />
+      <div className="fixed inset-0 z-[1] bg-gradient-to-t from-[#113bb0]/80 via-[#113bb0]/25 to-transparent" />
 
       {/* HEADER */}
-      <header className="sticky top-0 left-0 w-full z-50 px-4 sm:px-6 md:px-12 lg:px-16 pt-4 sm:pt-6 md:pt-8 pb-4 bg-gradient-to-b from-black/70 via-black/40 to-transparent">
+      <header className="fixed top-0 left-0 w-full z-50 px-4 sm:px-6 md:px-12 lg:px-16 pt-3 sm:pt-4 md:pt-5">
         <div className="flex items-start justify-between">
           <div className="min-h-[44px]">
             {step > 0 && (
@@ -102,7 +100,7 @@ export default function App() {
 
         {/* PROGRESO */}
         <div
-          className="mt-6 sm:mt-8 flex items-center justify-center gap-3 w-full"
+          className="mt-4 sm:mt-5 flex items-center justify-center gap-3 w-full"
           role="progressbar"
           aria-valuemin={1}
           aria-valuemax={5}
@@ -125,7 +123,7 @@ export default function App() {
       </header>
 
       {/* CONTENIDO */}
-      <main className="relative z-10 w-full min-h-[100dvh] flex items-end md:items-center px-4 sm:px-6 md:px-10 lg:px-16 pb-16 sm:pb-20 md:pb-0 pt-6 sm:pt-8 md:pt-12 overflow-x-hidden">
+      <main className="relative z-10 w-full h-[100dvh] overflow-hidden flex items-center px-4 sm:px-6 md:px-10 lg:px-16 pt-24 sm:pt-28 md:pt-32 pb-6 sm:pb-8">
         <div key={step} className="w-full max-w-6xl mx-auto">
 
           {/* PASO 0 */}
@@ -142,7 +140,7 @@ export default function App() {
               <p className="f-ui rise font-normal text-base sm:text-lg md:text-xl max-w-xl mb-8 sm:mb-12 leading-relaxed mx-auto md:mx-0" style={rise(280)}>
                 Bienvenido a la Universidad Nacional de Lomas de Zamora. Acompañanos en este recorrido para conocer tu próxima casa de estudios.
               </p>
-              <div className="flex justify-center md:justify-start">
+              <div className="flex justify-center md:justify-start mt-6 sm:mt-8">
                 <button onClick={avanzar} className={`${NAV_BTN} rise`} style={rise(420)}>
                   Iniciar recorrido <i className="fa-solid fa-arrow-right" aria-hidden="true"></i>
                 </button>
