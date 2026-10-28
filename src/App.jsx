@@ -123,7 +123,15 @@ export default function App() {
       </header>
 
       {/* CONTENIDO */}
-      <main className="relative z-10 w-full h-[100dvh] overflow-hidden flex items-center px-4 sm:px-6 md:px-10 lg:px-16 pt-24 sm:pt-28 md:pt-32 pb-6 sm:pb-8">
+      <main
+        className={`relative z-10 w-full h-[100dvh] ${
+          step === 2 || step === 4 ? 'overflow-y-auto overflow-x-hidden' : 'overflow-hidden'
+        } flex ${step === 2 || step === 4 ? 'items-start' : 'items-center'} px-4 sm:px-6 md:px-10 lg:px-16 ${
+          step === 2 || step === 4
+            ? 'pt-32 sm:pt-36 md:pt-40 pb-10 sm:pb-12'
+            : 'pt-24 sm:pt-28 md:pt-32 pb-6 sm:pb-8'
+        }`}
+      >
         <div key={step} className="w-full max-w-6xl mx-auto">
 
           {/* PASO 0 */}
