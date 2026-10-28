@@ -55,7 +55,7 @@ Pasos:
 
 ## Datos que NO se inventan
 - **Carreras:** la lista oficial (10 carreras con sus títulos y perfiles) ya viene cargada en `src/data/carreras.js`. No agregar carreras, no reescribir ni resumir los textos de `perfil` y no inventar planes de estudio, duraciones ni salidas laborales. Para sumar o cambiar una carrera se edita solo ese archivo.
-- **Perfiles largos:** los perfiles tienen entre 1 y 9 párrafos. En la tarjeta blanca se muestra el primer párrafo y un botón "Ver perfil completo" (cuadrado, con `fa-chevron-down`) que despliega el resto dentro de un contenedor con `max-h` y `overflow-y-auto`. Debajo del título de la tarjeta se muestran los `titulos` (ej. "Licenciatura · Profesorado") y, en letra chica, `perfilDe` (a qué título corresponde el perfil).
+- **Perfiles largos:** los perfiles tienen entre 1 y 9 párrafos. En la tarjeta blanca se muestra el primer párrafo y un botón "Ver perfil completo" (cuadrado, con `fa-chevron-down`) que despliega el resto dentro de un contenedor con `max-h` y `overflow-y-auto`. Debajo del título de la tarjeta se muestran los `titulos` (ej. "Licenciatura · Profesorado"). Cada carrera se trata como una sola oferta con un único perfil que abarca todos sus títulos; no hay perfiles separados por título (técnico, licenciado, profesor).
 - **Menú con 10 carreras:** la lista vertical usa ítems compactos (`py-3`) dentro de un contenedor con `max-h` y `overflow-y-auto` para que entre en `100dvh` a 375 px y a 1440 px. En mobile, la tarjeta de detalle se muestra debajo de la lista.
 - **Google Form:** la URL vive en `config.js` (`formUrl`). El equipo la va a crear. Si está vacía, el botón se muestra con `aria-disabled="true"` y se loguea un `console.warn`. No inventar una URL.
 - **Fotos reales:** si faltan en `public/img/`, usar los placeholders del prototipo y dejar un `// TODO: foto real` en `config.js`.
@@ -67,7 +67,6 @@ export const carreras = [
     id: 'periodismo',
     nombre: 'Periodismo',
     titulos: ['Tecnicatura', 'Licenciatura'],
-    perfilDe: 'Técnico/a en Periodismo',
     perfil: ['párrafo 1', 'párrafo 2'], // un string por párrafo
   },
 ];

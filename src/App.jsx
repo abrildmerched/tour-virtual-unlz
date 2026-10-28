@@ -75,11 +75,10 @@ export default function App() {
       <div className="absolute inset-0 bg-black/60 z-0" />
       <div className="absolute inset-0 z-0 bg-gradient-to-t from-[#113bb0]/80 via-[#113bb0]/25 to-transparent" />
 
-      {/* FRANJA LATERAL AZUL */}
-      <div className="absolute left-0 top-0 h-full w-2 bg-[#113bb0] z-40" aria-hidden="true" />
+      {/* FRANJA LATERAL AZUL - REMOVIDA */}
 
       {/* HEADER */}
-      <header className="absolute top-0 left-0 w-full z-50 px-4 sm:px-6 md:px-16 pt-6 sm:pt-8 md:pt-10">
+      <header className="absolute top-0 left-0 w-full z-50 px-4 sm:px-6 md:px-12 lg:px-16 pt-6 sm:pt-8 md:pt-10">
         <div className="flex items-start justify-between">
           <div className="min-h-[44px]">
             {step > 0 && (
@@ -103,7 +102,7 @@ export default function App() {
 
         {/* PROGRESO */}
         <div
-          className="mt-8 sm:mt-10 flex items-center gap-3"
+          className="mt-6 sm:mt-8 flex items-center justify-center gap-3 w-full"
           role="progressbar"
           aria-valuemin={1}
           aria-valuemax={5}
@@ -112,21 +111,21 @@ export default function App() {
           <span className="f-cn text-sm tracking-widest px-2 py-1 bg-[#113bb0] text-white inline-block">
             {String(step + 1).padStart(2, '0')} / 05
           </span>
-          <div className="flex flex-1 gap-2 max-w-md">
+          <div className="flex flex-1 gap-2 max-w-sm md:max-w-md">
             {STEP_LABELS.map((label, i) => (
               <div key={label} className="flex-1 h-[3px] bg-white/30">
                 <div className={`h-full bg-white transition-all duration-700 ${i <= step ? 'w-full' : 'w-0'}`} />
               </div>
             ))}
           </div>
-          <span className="f-ui text-xs font-bold uppercase tracking-widest hidden md:block text-white/90">
+          <span className="f-ui text-xs font-bold uppercase tracking-widest hidden lg:block text-white/90">
             {STEP_LABELS[step]}
           </span>
         </div>
       </header>
 
       {/* CONTENIDO */}
-      <main className="relative z-10 w-full h-[100dvh] flex items-end md:items-center px-4 sm:px-6 md:px-16 pb-10 sm:pb-14 md:pb-0 pt-44 sm:pt-48 md:pt-52 overflow-y-auto overflow-x-hidden">
+      <main className="relative z-10 w-full h-[100dvh] flex items-end md:items-center px-4 sm:px-6 md:px-10 lg:px-16 pb-12 sm:pb-16 md:pb-0 pt-52 sm:pt-56 md:pt-60 overflow-y-auto overflow-x-hidden">
         <div key={step} className="w-full max-w-6xl mx-auto">
 
           {/* PASO 0 */}
@@ -153,7 +152,7 @@ export default function App() {
 
           {/* PASO 1 */}
           {step === 1 && (
-            <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
+            <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center w-full max-w-6xl mx-auto">
               <div className="text-center md:text-left">
                 <p className="f-cn rise text-sm sm:text-base md:text-xl uppercase tracking-[0.25em] sm:tracking-[0.3em] mb-4 sm:mb-6 inline-block bg-[#113bb0] text-white px-3 py-1" style={rise(0)}>
                   Paso 01 · El predio
@@ -197,7 +196,7 @@ export default function App() {
 
           {/* PASO 2 */}
           {step === 2 && (
-            <div className="max-w-4xl mx-auto text-center">
+            <div className="w-full max-w-4xl mx-auto text-center">
               <p className="f-cn rise text-sm sm:text-base md:text-xl uppercase tracking-[0.25em] sm:tracking-[0.3em] mb-6 sm:mb-8 inline-block bg-[#113bb0] text-white px-3 py-1" style={rise(0)}>
                 Paso 02 · Sociales
               </p>
@@ -266,12 +265,11 @@ export default function App() {
                 {selectedCareer && (
                   <article
                     key={selectedCareer.id}
-                    className="rise bg-white text-[#1c1d1f] p-5 sm:p-6 md:p-10 border-t-4 border-[#113bb0] max-h-[72dvh] sm:max-h-[70dvh] md:max-h-[60dvh] overflow-y-auto shadow-xl mx-auto w-full max-w-2xl md:max-w-none"
+                    className="rise bg-white text-[#1c1d1f] p-5 sm:p-6 md:p-10 border-t-4 border-[#113bb0] max-h-[74dvh] sm:max-h-[72dvh] md:max-h-[60dvh] overflow-y-auto shadow-xl mx-auto w-full max-w-2xl md:max-w-3xl"
                     style={rise(0)}
                   >
                     <h3 className="f-title text-2xl sm:text-3xl md:text-4xl uppercase leading-tight mb-2">{selectedCareer.nombre}</h3>
-                    <p className="f-ui text-sm mb-1 text-[#1c1d1f]">{selectedCareer.titulos.join(' · ')}</p>
-                    <p className="f-ui text-xs mb-4 sm:mb-6 text-[#4d4d4d]">{selectedCareer.perfilDe}</p>
+                    <p className="f-ui text-sm mb-4 sm:mb-6 text-[#1c1d1f]">{selectedCareer.titulos.join(' · ')}</p>
                     <h4 className="f-cn text-xs sm:text-sm uppercase tracking-[0.25em] mb-3 sm:mb-4 text-[#113bb0]">
                       Perfil del graduado
                     </h4>
@@ -293,7 +291,7 @@ export default function App() {
                         {showFullPerfil ? 'Ver menos' : 'Ver perfil completo'}
                       </button>
                     )}
-                    <div className="flex flex-wrap gap-2 sm:gap-3">
+                    <div className="flex flex-wrap justify-center md:justify-start gap-2 sm:gap-3">
                       <button
                         onClick={() => {
                           setSelectedCareerId(null);
@@ -319,8 +317,8 @@ export default function App() {
 
           {/* PASO 4 */}
           {step === 4 && (
-            <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
-              <div className="text-center md:text-left">
+            <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center w-full max-w-6xl mx-auto">
+              <div className="text-center">
                 <p className="f-cn rise text-sm sm:text-base md:text-xl uppercase tracking-[0.25em] sm:tracking-[0.3em] mb-4 sm:mb-6 inline-block bg-[#113bb0] text-white px-3 py-1" style={rise(0)}>
                   Paso 05 · Animarse
                 </p>
@@ -328,7 +326,7 @@ export default function App() {
                   ¡Dale,<br />
                   <span className="bg-white text-[#113bb0] px-2 sm:px-3 inline-block">empezá</span> hoy
                 </h2>
-                <p className="f-ui rise font-normal text-base sm:text-lg max-w-md mx-auto md:mx-0 leading-relaxed" style={rise(220)}>
+                <p className="f-ui rise font-normal text-base sm:text-lg max-w-md mx-auto leading-relaxed" style={rise(220)}>
                   Tu futuro en Ciencias Sociales te espera. Completá el formulario y acercate un paso más a formar parte de la UNLZ.
                 </p>
               </div>
