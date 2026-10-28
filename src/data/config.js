@@ -4,7 +4,7 @@
 // formUrl vacío => el botón queda con aria-disabled="true" y se loguea un console.warn
 
 export const config = {
-  formUrl: '', // TODO: agregar URL del Google Form cuando esté lista
+  formUrl: 'https://forms.gle/eoUXzAEEoA9TPXzk9',
   mapsUrl: 'https://maps.app.goo.gl/6PjVvx19rHHq2TaSA',
   mapEmbedUrl:
     'https://www.google.com/maps?q=Universidad+Nacional+de+Lomas+de+Zamora&output=embed',
