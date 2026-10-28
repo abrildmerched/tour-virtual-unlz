@@ -215,60 +215,52 @@ export default function App() {
 
           {/* PASO 3 */}
           {step === 3 && (
-            <div className="flex flex-col gap-6 md:gap-10">
-              <div className={`text-center w-full ${selectedCareer ? 'hidden md:block' : ''}`}>
-                <p className="f-cn rise text-sm sm:text-base md:text-xl uppercase tracking-[0.25em] sm:tracking-[0.3em] mb-4 sm:mb-6 inline-block bg-[#113bb0] text-white px-3 py-1" style={rise(0)}>
+            <div className="flex flex-col gap-5 md:gap-6 w-full max-w-6xl mx-auto h-full">
+              <div className="text-center w-full">
+                <p className="f-cn rise text-sm sm:text-base md:text-xl uppercase tracking-[0.25em] sm:tracking-[0.3em] mb-2 sm:mb-3 md:mb-4 inline-block bg-[#113bb0] text-white px-3 py-1" style={rise(0)}>
                   Paso 03 · El aula
                 </p>
-                <h2 className="f-title rise text-4xl sm:text-5xl md:text-7xl uppercase leading-[1.05] sm:leading-[1.0] md:leading-[0.95] mb-3 sm:mb-5" style={rise(100)}>
+                <h2 className="f-title rise text-4xl sm:text-5xl md:text-7xl uppercase leading-[1.05] sm:leading-[1.0] md:leading-[0.95] mb-2 sm:mb-3" style={rise(100)}>
                   ¡Llegaste<br />
                   al <span className="bg-white text-[#113bb0] px-2 sm:px-4 py-0.5 inline-block leading-[1.15]">aula</span>!
                 </h2>
-                <p className="f-ui rise font-normal text-base sm:text-lg mb-2 sm:mb-4" style={rise(200)}>
-                  Seleccioná la carrera que más te interese.
-                </p>
+                {!selectedCareer && (
+                  <p className="f-ui rise font-normal text-base sm:text-lg" style={rise(200)}>
+                    Seleccioná la carrera que más te interese.
+                  </p>
+                )}
               </div>
 
-              <div className={`grid grid-cols-1 ${selectedCareer ? 'md:grid-cols-1' : 'md:grid-cols-2'} gap-6 md:gap-10 items-start justify-items-center w-full`}>
-                <div className={`${selectedCareer ? 'hidden md:block' : ''} mx-auto w-full md:w-auto`}>
-                  <ul className="rise flex flex-col w-full md:w-96 max-h-[32dvh] sm:max-h-[38dvh] md:max-h-[50dvh] overflow-y-auto shadow-lg" style={rise(300)}>
-                    {carreras.map((carrera, i) => {
-                      const active = selectedCareerId === carrera.id;
-                      return (
-                        <li key={carrera.id} className={i > 0 ? '-mt-px' : ''}>
-                          <button
-                            onClick={() => {
-                              setSelectedCareerId(carrera.id);
-                              setShowFullPerfil(false);
-                            }}
-                            aria-pressed={active}
-                            className={`group w-full flex items-center gap-3 sm:gap-4 px-4 sm:px-6 py-2.5 sm:py-3 border border-[#1c1d1f] rounded-none text-left transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
-                              active ? 'bg-[#113bb0] text-white' : 'bg-white text-[#1c1d1f] hover:bg-[#113bb0] hover:text-white'
-                            }`}
-                          >
-                            <i
-                              className={`fa-regular fa-star transition-colors duration-300 ${
-                                active ? 'text-white' : 'text-[#1c1d1f] group-hover:text-white'
-                              }`}
-                              aria-hidden="true"
-                            ></i>
-                            <span className="f-ui font-bold uppercase text-xs sm:text-sm tracking-wide">{carrera.nombre}</span>
-                          </button>
-                        </li>
-                      );
-                    })}
-                  </ul>
+              {!selectedCareer && (
+                <div className="w-full flex-1 flex items-center justify-center">
+                  <div className="rise grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 w-full max-w-3xl mx-auto" style={rise(300)}>
+                    {carreras.map((carrera) => (
+                      <button
+                        key={carrera.id}
+                        onClick={() => {
+                          setSelectedCareerId(carrera.id);
+                          setShowFullPerfil(false);
+                        }}
+                        className="group w-full flex items-center gap-3 px-4 sm:px-5 py-2.5 sm:py-3 border border-[#1c1d1f] rounded-none text-left transition-colors duration-300 bg-white text-[#1c1d1f] hover:bg-[#113bb0] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                      >
+                        <i className="fa-regular fa-star transition-colors duration-300 text-[#1c1d1f] group-hover:text-white" aria-hidden="true"></i>
+                        <span className="f-ui font-bold uppercase text-xs sm:text-sm tracking-wide">{carrera.nombre}</span>
+                      </button>
+                    ))}
+                  </div>
                 </div>
+              )}
 
-                {selectedCareer && (
+              {selectedCareer && (
+                <div className="w-full flex-1 flex flex-col items-center">
                   <article
                     key={selectedCareer.id}
-                    className="rise bg-white text-[#1c1d1f] p-5 sm:p-6 md:p-10 border-t-4 border-[#113bb0] shadow-xl mx-auto w-full max-w-2xl md:max-w-3xl"
+                    className="rise bg-white text-[#1c1d1f] p-5 sm:p-6 md:p-8 border-t-4 border-[#113bb0] shadow-xl mx-auto w-full max-w-3xl max-h-[calc(100dvh-260px)] overflow-y-auto"
                     style={rise(0)}
                   >
-                    <h3 className="f-title text-2xl sm:text-3xl md:text-4xl uppercase leading-tight mb-2">{selectedCareer.nombre}</h3>
-                    <p className="f-ui text-sm mb-4 sm:mb-6 text-[#1c1d1f]">{selectedCareer.titulos.join(' · ')}</p>
-                    <h4 className="f-cn text-xs sm:text-sm uppercase tracking-[0.25em] mb-3 sm:mb-4 text-[#113bb0]">
+                    <h3 className="f-title text-2xl sm:text-3xl md:text-4xl uppercase leading-tight mb-2 text-center">{selectedCareer.nombre}</h3>
+                    <p className="f-ui text-sm mb-4 sm:mb-6 text-[#1c1d1f] text-center">{selectedCareer.titulos.join(' · ')}</p>
+                    <h4 className="f-cn text-xs sm:text-sm uppercase tracking-[0.25em] mb-3 sm:mb-4 text-[#113bb0] text-center">
                       Perfil del graduado
                     </h4>
                     <div className="f-ui font-normal leading-relaxed mb-4 sm:mb-6" style={{ color: GRAY }}>
@@ -281,7 +273,7 @@ export default function App() {
                         ))}
                     </div>
                     {selectedCareer.perfil.length > 1 && (
-                      <div className="flex justify-center md:justify-start">
+                      <div className="flex justify-center">
                         <button
                           onClick={() => setShowFullPerfil((v) => !v)}
                           className="f-ui font-bold uppercase tracking-widest text-xs rounded-none border border-[#1c1d1f] bg-transparent text-[#1c1d1f] px-3 sm:px-4 py-2 sm:py-3 inline-flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 transition-colors duration-300 hover:bg-[#1c1d1f] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1c1d1f]"
@@ -310,8 +302,8 @@ export default function App() {
                       </button>
                     </div>
                   </article>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           )}
 
