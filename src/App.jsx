@@ -147,7 +147,8 @@ export default function App() {
 
       {/* CONTENIDO */}
       <main ref={mainRef} className="relative z-10 flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden px-5 md:px-16">
-        <div key={step} className="w-full max-w-6xl mx-auto my-auto py-6 md:py-10">
+        <div key={step} className="w-full max-w-6xl mx-auto min-h-full flex items-center py-6 md:py-10">
+          <div className="w-full">
 
           {/* PASO 0 */}
           {step === 0 && (
@@ -385,6 +386,7 @@ export default function App() {
               </div>
             </div>
           )}
+          </div>
         </div>
       </main>
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-10 bg-gradient-to-t from-[#113bb0]/80 to-transparent md:hidden" />
