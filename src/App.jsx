@@ -79,7 +79,7 @@ export default function App() {
       <div className="absolute left-0 top-0 h-full w-2 bg-[#113bb0] z-40" aria-hidden="true" />
 
       {/* HEADER */}
-      <header className="absolute top-0 left-0 w-full z-50 px-4 sm:px-6 md:px-16 pt-4 sm:pt-6 md:pt-8">
+      <header className="absolute top-0 left-0 w-full z-50 px-4 sm:px-6 md:px-16 pt-6 sm:pt-8 md:pt-10">
         <div className="flex items-start justify-between">
           <div className="min-h-[44px]">
             {step > 0 && (
@@ -103,7 +103,7 @@ export default function App() {
 
         {/* PROGRESO */}
         <div
-          className="mt-6 flex items-center gap-3"
+          className="mt-8 sm:mt-10 flex items-center gap-3"
           role="progressbar"
           aria-valuemin={1}
           aria-valuemax={5}
@@ -126,7 +126,7 @@ export default function App() {
       </header>
 
       {/* CONTENIDO */}
-      <main className="relative z-10 w-full h-[100dvh] flex items-end md:items-center px-4 sm:px-6 md:px-16 pb-10 sm:pb-14 md:pb-0 pt-36 sm:pt-40 overflow-y-auto overflow-x-hidden">
+      <main className="relative z-10 w-full h-[100dvh] flex items-end md:items-center px-4 sm:px-6 md:px-16 pb-10 sm:pb-14 md:pb-0 pt-44 sm:pt-48 md:pt-52 overflow-y-auto overflow-x-hidden">
         <div key={step} className="w-full max-w-6xl mx-auto">
 
           {/* PASO 0 */}
@@ -197,22 +197,19 @@ export default function App() {
 
           {/* PASO 2 */}
           {step === 2 && (
-            <div className="max-w-4xl mx-auto text-center md:text-left">
-              <div className="rise inline-block bg-white p-2 sm:p-3 mb-6 sm:mb-8" style={rise(0)}>
-                <img src={config.logos.azulChico} alt="Facultad de Ciencias Sociales" className="h-12 sm:h-16 md:h-20" loading="lazy" decoding="async" />
-              </div>
-              <p className="f-cn rise text-sm sm:text-base md:text-xl uppercase tracking-[0.25em] sm:tracking-[0.3em] mb-4 sm:mb-6 inline-block bg-[#113bb0] text-white px-3 py-1" style={rise(60)}>
+            <div className="max-w-4xl mx-auto text-center">
+              <p className="f-cn rise text-sm sm:text-base md:text-xl uppercase tracking-[0.25em] sm:tracking-[0.3em] mb-6 sm:mb-8 inline-block bg-[#113bb0] text-white px-3 py-1" style={rise(0)}>
                 Paso 02 · Sociales
               </p>
-              <h2 className="f-title rise text-4xl sm:text-5xl md:text-8xl uppercase leading-[0.92] mb-6 sm:mb-8" style={rise(140)}>
+              <h2 className="f-title rise text-4xl sm:text-6xl md:text-8xl uppercase leading-[0.92] mb-6 sm:mb-10" style={rise(100)}>
                 Facultad de<br />
                 <span className="bg-white text-[#113bb0] px-2 sm:px-3 inline-block">Ciencias Sociales</span>
               </h2>
-              <p className="f-ui rise font-normal text-base sm:text-lg md:text-xl max-w-xl mb-8 sm:mb-12 leading-relaxed mx-auto md:mx-0" style={rise(260)}>
+              <p className="f-ui rise font-normal text-base sm:text-lg md:text-xl max-w-xl mb-10 sm:mb-14 leading-relaxed mx-auto" style={rise(220)}>
                 Acá vas a encontrar carreras pensadas para transformar la realidad. ¿Entramos?
               </p>
-              <div className="flex justify-center md:justify-start">
-                <button onClick={avanzar} className={`${NAV_BTN} rise`} style={rise(380)}>
+              <div className="flex justify-center">
+                <button onClick={avanzar} className={`${NAV_BTN} rise`} style={rise(340)}>
                   Entrar al edificio <i className="fa-solid fa-arrow-right" aria-hidden="true"></i>
                 </button>
               </div>
@@ -222,7 +219,7 @@ export default function App() {
           {/* PASO 3 */}
           {step === 3 && (
             <div className="flex flex-col gap-6 md:gap-10">
-              <div className="text-center md:text-left">
+              <div className={`text-center md:text-left ${selectedCareer ? 'hidden md:block' : ''}`}>
                 <p className="f-cn rise text-sm sm:text-base md:text-xl uppercase tracking-[0.25em] sm:tracking-[0.3em] mb-4 sm:mb-6 inline-block bg-[#113bb0] text-white px-3 py-1" style={rise(0)}>
                   Paso 03 · El aula
                 </p>
@@ -230,14 +227,14 @@ export default function App() {
                   ¡Llegaste<br />
                   al <span className="bg-white text-[#113bb0] px-2 sm:px-3 inline-block">aula</span>!
                 </h2>
-                <p className="f-ui rise font-normal text-base sm:text-lg mb-4 sm:mb-6" style={rise(200)}>
+                <p className="f-ui rise font-normal text-base sm:text-lg mb-2 sm:mb-4" style={rise(200)}>
                   Seleccioná la carrera que más te interese.
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-start">
-                <div>
-                  <ul className="rise flex flex-col w-full md:w-96 max-h-[28dvh] sm:max-h-[35dvh] md:max-h-[50dvh] overflow-y-auto shadow-lg" style={rise(300)}>
+              <div className={`grid grid-cols-1 ${selectedCareer ? 'md:grid-cols-1' : 'md:grid-cols-2'} gap-6 md:gap-10 items-start`}>
+                <div className={`${selectedCareer ? 'hidden md:block' : ''}`}>
+                  <ul className="rise flex flex-col w-full md:w-96 max-h-[32dvh] sm:max-h-[38dvh] md:max-h-[50dvh] overflow-y-auto shadow-lg" style={rise(300)}>
                     {carreras.map((carrera, i) => {
                       const active = selectedCareerId === carrera.id;
                       return (
@@ -269,7 +266,7 @@ export default function App() {
                 {selectedCareer && (
                   <article
                     key={selectedCareer.id}
-                    className="rise bg-white text-[#1c1d1f] p-5 sm:p-6 md:p-10 border-t-4 border-[#113bb0] max-h-[38dvh] sm:max-h-[45dvh] md:max-h-[60dvh] overflow-y-auto shadow-xl"
+                    className="rise bg-white text-[#1c1d1f] p-5 sm:p-6 md:p-10 border-t-4 border-[#113bb0] max-h-[72dvh] sm:max-h-[70dvh] md:max-h-[60dvh] overflow-y-auto shadow-xl mx-auto w-full max-w-2xl md:max-w-none"
                     style={rise(0)}
                   >
                     <h3 className="f-title text-2xl sm:text-3xl md:text-4xl uppercase leading-tight mb-2">{selectedCareer.nombre}</h3>
@@ -304,7 +301,7 @@ export default function App() {
                         }}
                         className="f-ui font-bold uppercase tracking-widest text-xs rounded-none border border-[#1c1d1f] bg-transparent text-[#1c1d1f] px-3 sm:px-5 py-2 sm:py-3 inline-flex items-center gap-2 sm:gap-3 transition-colors duration-300 hover:bg-[#1c1d1f] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1c1d1f]"
                       >
-                        <i className="fa-solid fa-list" aria-hidden="true"></i> Otras carreras
+                        <i className="fa-solid fa-list" aria-hidden="true"></i> Ver todas las carreras
                       </button>
                       <button
                         onClick={avanzar}
@@ -325,14 +322,14 @@ export default function App() {
             <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
               <div className="text-center md:text-left">
                 <p className="f-cn rise text-sm sm:text-base md:text-xl uppercase tracking-[0.25em] sm:tracking-[0.3em] mb-4 sm:mb-6 inline-block bg-[#113bb0] text-white px-3 py-1" style={rise(0)}>
-                  Último paso
+                  Paso 05 · Animarse
                 </p>
                 <h2 className="f-title rise text-4xl sm:text-5xl md:text-7xl uppercase leading-[0.95] mb-4 sm:mb-6" style={rise(100)}>
-                  ¿Querés<br />
-                  saber <span className="bg-white text-[#113bb0] px-2 sm:px-3 inline-block">más</span>?
+                  ¡Dale,<br />
+                  <span className="bg-white text-[#113bb0] px-2 sm:px-3 inline-block">empezá</span> hoy
                 </h2>
                 <p className="f-ui rise font-normal text-base sm:text-lg max-w-md mx-auto md:mx-0 leading-relaxed" style={rise(220)}>
-                  Dejanos tus datos para enviarte el plan de estudios, fechas de inscripción y más información sobre la vida universitaria en Sociales UNLZ.
+                  Tu futuro en Ciencias Sociales te espera. Completá el formulario y acercate un paso más a formar parte de la UNLZ.
                 </p>
               </div>
 
