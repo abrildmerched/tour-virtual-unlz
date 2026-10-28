@@ -1,78 +1,105 @@
 # Recorrido inmersivo UNLZ · Facultad de Ciencias Sociales
 
-Recorrido inmersivo de 5 pasos para ingresantes de la Facultad de Ciencias Sociales de la Universidad Nacional de Lomas de Zamora. Aplicación web de una sola pantalla con fondos fotográficos a pantalla completa, tipografías institucionales, presencia del azul UNLZ y navegación paso a paso hasta un formulario de Google Forms.
+Recorrido virtual de 5 pasos para ingresantes de la Facultad de Ciencias Sociales de la Universidad Nacional de Lomas de Zamora. Una experiencia de pantalla única, con fondos fotográficos de los espacios reales, tipografías e identidad visual institucionales y navegación paso a paso hasta el formulario de contacto.
 
-## Características
+**Demo en producción:** [https://tour-virtual-unlz.netlify.app/](https://tour-virtual-unlz.netlify.app/)
 
-- **5 pasos**: Bienvenida → Predio + mapa → Entrada a Sociales → Selección de carrera → Contacto/Formulario
-- **Vite + React 18 + Tailwind CSS v4**: Build rápido y estilos con utilidades
-- **Tipografías institucionales**: Zurich (títulos) con fallback a Archivo Black/Narrow, Poppins (lectura e interfaz)
-- **Font Awesome 7 Free**: Solo para íconos
-- **Identidad visual UNLZ**: Velo azul, palabra clave resaltada, sobretítulos en bloque azul, franja lateral, progreso azul, tarjetas con borde superior azul
-- **Carreras oficiales**: Datos en `src/data/carreras.js` (10 carreras con perfiles oficiales sin modificar)
-- **100dvh**: Adaptado a viewport móvil (evita corte con barra del navegador)
-- **Accesibilidad**: Foco visible, `alt` en imágenes, `aria-pressed`, `aria-disabled`, `prefers-reduced-motion`
-- **Responsive**: Optimizado para 375px y 1440px
+## Sobre el proyecto
 
-## Estructura
+El recorrido acompaña a los futuros ingresantes por el predio, el edificio de la Facultad y su oferta académica, y termina invitándolos a dejar sus datos en un formulario para recibir información sobre planes de estudio e inscripción.
+
+Está pensado para un público de 18 años, con prioridad en dispositivos móviles, y respeta el Manual de Identidad Visual oficial de la UNLZ.
+
+## Funcionalidades
+
+- **Recorrido en 5 pasos:** Bienvenida → Predio y mapa → Entrada a Sociales → Selección de carrera → Contacto.
+- **Mapa interactivo:** Google Maps embebido, con enlace directo para abrirlo en la aplicación.
+- **Oferta académica completa:** las 10 carreras de la Facultad, con sus títulos (Tecnicatura, Licenciatura, Profesorado) y el perfil del egresado/a.
+- **Perfil expandible:** la tarjeta de detalle muestra el primer párrafo y permite desplegar el perfil completo con scroll interno.
+- **Navegación clara:** botón "Volver", indicador de progreso (01 / 05) y avance paso a paso.
+- **Formulario de contacto:** redirección a un Google Forms (nombre, apellido, institución educativa, carrera de interés y email), configurable sin tocar el código.
+- **Responsive:** diseño optimizado para móvil y escritorio.
+
+## Stack tecnológico
+
+- [Vite](https://vitejs.dev/): bundler y servidor de desarrollo
+- [React 19](https://react.dev/): interfaz
+- [Tailwind CSS v4](https://tailwindcss.com/): estilos
+- [Font Awesome 7 Free](https://fontawesome.com/): íconos (únicamente)
+- [Poppins](https://fonts.google.com/specimen/Poppins): tipografía complementaria (interfaz y textos de lectura)
+- Zurich Extra Black BT / Zurich Cn BT: tipografía principal institucional (títulos), con fuentes de reemplazo configuradas
+- [Netlify](https://www.netlify.com/): despliegue
+
+## Estructura del proyecto
 
 ```text
 /
 ├─ public/
-│  ├─ fonts/      # ZurichExtraBlackBT.woff2, ZurichCnBT-Bold.woff2
-│  ├─ img/        # Fondos del recorrido
-│  └─ logos/      # Logos institucionales
+│  ├─ fonts/      # Fuentes Zurich (con fallback configurado)
+│  ├─ img/        # Fondos fotográficos del recorrido
+│  ├─ logos/      # Logos institucionales UNLZ
+│  ├─ _redirects  # Configuración SPA para Netlify
+│  └─ favicon.svg
 ├─ reference/
 │  ├─ App.reference.jsx
 │  └─ manual-identidad-visual-unlz.pdf
 ├─ src/
-│  ├─ App.jsx
-│  ├─ index.css
-│  ├─ main.jsx
+│  ├─ App.jsx           # Componente principal (recorrido por pasos)
+│  ├─ index.css         # Estilos globales, tipografías y animaciones
+│  ├─ main.jsx          # Punto de entrada
 │  └─ data/
-│     ├─ carreras.js
-│     └─ config.js
+│     ├─ carreras.js    # Carreras, títulos y perfiles de egresado/a
+│     └─ config.js      # URLs (formulario, mapa), logos y fondos
 ├─ AGENTS.md
-└─ design.md
+└─ design.md            # Sistema de diseño
 ```
 
-## Configuración
+Para actualizar contenidos sin modificar `App.jsx`:
 
-Editar sin tocar `App.jsx`:
+- `src/data/carreras.js`: carreras, títulos y perfiles.
+- `src/data/config.js`: URL del formulario, enlaces de Google Maps, logos y fondos.
 
-- **`src/data/config.js`**: `formUrl` (Google Forms), `mapsUrl`, `mapEmbedUrl`, rutas de logos y array de fondos
-- **`src/data/carreras.js`**: Lista oficial de carreras (no reescribir perfiles)
+## Diseño / UX
 
-## Desarrollo
+- **Experiencia inmersiva:** pantalla completa a `100dvh`, sin scroll de página.
+- **Fondos y overlays:** fotografías reales de los espacios, con velo negro y degradé azul institucional (`#113bb0`) para asegurar el contraste y la legibilidad.
+- **Tipografía:** Zurich para títulos y Poppins para interfaz y lectura, según el Manual de Identidad Visual.
+- **Movimiento:** zoom lento (Ken Burns) en los fondos y animaciones de entrada escalonadas.
+- **Componentes:** botones de navegación cuadrados, transparentes y con borde blanco que se invierten al pasar el mouse; botón final del formulario oscuro y en forma de pastilla; menú de carreras en lista vertical con ícono de estrella.
+- **Sin sombras de texto:** no se usa `text-shadow` ni `drop-shadow`.
+- **Accesibilidad:** foco visible, atributos ARIA, textos alternativos y soporte de `prefers-reduced-motion`.
+
+El detalle completo está en [`design.md`](./design.md).
+
+## Requisitos
+
+- Node.js 18 o superior
+- npm 9 o superior
+
+## Instalación / Desarrollo
 
 ```bash
+# Clonar el repositorio
+git clone https://github.com/abrildmerched/tour-virtual-unlz.git
+cd tour-virtual-unlz
+
+# Instalar dependencias
 npm install
+
+# Servidor de desarrollo
 npm run dev
+
+# Build de producción
 npm run build
+
+# Vista previa del build
 npm run preview
 ```
 
-## Despliegue en Netlify
+### Despliegue
 
-1. Subir el repositorio a GitHub
-2. En [Netlify](https://app.netlify.com/), conectar el repositorio
-3. Configuración de build:
-   - Build command: `npm run build`
-   - Publish directory: `dist`
-4. Deploy
+El proyecto se despliega en Netlify:
 
-## TODO pendientes
-
-- [ ] Agregar URL del Google Form en `src/data/config.js` (`formUrl`)
-- [ ] Reemplazar fotos placeholders en `public/img/` por fotos reales del predio/edificio/facultad (2000px, optimizadas)
-- [ ] Agregar fuentes Zurich reales en `public/fonts/` (`ZurichExtraBlackBT.woff2`, `ZurichCnBT-Bold.woff2`) - hay fallback configurado
-
-## Reglas de diseño
-
-- Sin `text-shadow` ni `drop-shadow`
-- Botones de navegación: `rounded-none`, transparentes, borde blanco, hover invertido, con flecha Font Awesome
-- Botón final: oscuro `rounded-full`, precedido por "Completar y enviar formulario" en azul
-- Overlay `bg-black/60` + velo azul degradado
-- Font Awesome solo para íconos
-- `#113bb0` no usado como texto sobre fondo oscuro
-- Logos sin modificar/recolorear/deformar
+- **Build command:** `npm run build`
+- **Publish directory:** `dist`
+- **Redirects:** `public/_redirects` (SPA)
