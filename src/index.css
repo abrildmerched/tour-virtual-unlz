@@ -5,28 +5,15 @@
 @import "@fontsource/archivo-black/400.css";
 @import "@fontsource/archivo-narrow/700.css";
 
-/* Zurich es una fuente licenciada: colocar los archivos en /fonts.
-   Mientras tanto se usan fuentes de reemplazo de peso similar (Archivo). */
-@font-face {
-  font-family: 'Zurich Extra Black BT';
-  src: url('/fonts/ZurichExtraBlackBT.woff2') format('woff2');
-  font-weight: 900;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Zurich Cn BT';
-  src: url('/fonts/ZurichCnBT-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-display: swap;
-}
+/* Tipografías: Archivo Black y Archivo Narrow (@fontsource) para títulos y
+   etiquetas; Poppins para interfaz y lectura. Sin fuentes licenciadas. */
 
 .f-title {
-  font-family: 'Zurich Extra Black BT', 'Archivo Black', Impact, sans-serif;
+  font-family: 'Archivo Black', Impact, sans-serif;
   font-weight: 900;
 }
 .f-cn {
-  font-family: 'Zurich Cn BT', 'Archivo Narrow', 'Arial Narrow', sans-serif;
+  font-family: 'Archivo Narrow', 'Arial Narrow', sans-serif;
   font-weight: 700;
 }
 .f-ui {
@@ -60,6 +47,21 @@
   animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
 }
 
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* Entrada sin desplazamiento: la usa la tarjeta de detalle, que se
+   posiciona con scrollIntoView y no debe moverse después. */
+.fade {
+  opacity: 0;
+  animation: fade 0.5s ease-out forwards;
+}
+
 @keyframes grow {
   from {
     transform: scaleX(0);
@@ -76,6 +78,7 @@
 @media (prefers-reduced-motion: reduce) {
   .kenburns,
   .rise,
+  .fade,
   .grow {
     animation: none;
     opacity: 1;

@@ -14,8 +14,8 @@ Está pensado para un público de 18 años, con prioridad en dispositivos móvil
 
 - **Recorrido en 5 pasos:** Bienvenida → Predio y mapa → Entrada a Sociales → Selección de carrera → Contacto.
 - **Mapa interactivo:** Google Maps embebido, con enlace directo para abrirlo en la aplicación.
-- **Oferta académica completa:** las 10 carreras de la Facultad, con sus títulos (Tecnicatura, Licenciatura, Profesorado) y el perfil del egresado/a.
-- **Perfil expandible:** la tarjeta de detalle muestra el primer párrafo y permite desplegar el perfil completo con scroll interno.
+- **Oferta académica completa:** las 10 carreras de la Facultad, con sus títulos (Licenciatura, Profesorado) y el perfil del egresado/a.
+- **Ficha con enganche:** cada carrera muestra el perfil del egresado, un dato cultural bajo "¿Sabías que?" y una trivia de opción múltiple con explicación, pensada para ingresantes.
 - **Navegación clara:** botón "Volver", indicador de progreso (01 / 05) y avance paso a paso.
 - **Formulario de contacto:** redirección a un Google Forms (nombre, apellido, institución educativa, carrera de interés y email), configurable sin tocar el código.
 - **Responsive:** diseño optimizado para móvil y escritorio.
@@ -27,7 +27,7 @@ Está pensado para un público de 18 años, con prioridad en dispositivos móvil
 - [Tailwind CSS v4](https://tailwindcss.com/): estilos
 - [Font Awesome 7 Free](https://fontawesome.com/): íconos (únicamente)
 - [Poppins](https://fonts.google.com/specimen/Poppins): tipografía complementaria (interfaz y textos de lectura)
-- Zurich Extra Black BT / Zurich Cn BT: tipografía principal institucional (títulos), con fuentes de reemplazo configuradas
+- [Archivo Black](https://fonts.google.com/specimen/Archivo+Black) y [Archivo Narrow](https://fonts.google.com/specimen/Archivo+Narrow): tipografías de títulos y etiquetas, servidas localmente con `@fontsource`
 - [Netlify](https://www.netlify.com/): despliegue
 
 ## Estructura del proyecto
@@ -35,7 +35,6 @@ Está pensado para un público de 18 años, con prioridad en dispositivos móvil
 ```text
 /
 ├─ public/
-│  ├─ fonts/      # Fuentes Zurich (con fallback configurado)
 │  ├─ img/        # Fondos fotográficos del recorrido
 │  ├─ logos/      # Logos institucionales UNLZ
 │  ├─ _redirects  # Configuración SPA para Netlify
@@ -48,7 +47,7 @@ Está pensado para un público de 18 años, con prioridad en dispositivos móvil
 │  ├─ index.css         # Estilos globales, tipografías y animaciones
 │  ├─ main.jsx          # Punto de entrada
 │  └─ data/
-│     ├─ carreras.js    # Carreras, títulos y perfiles de egresado/a
+│     ├─ carreras.js    # Carreras, títulos, resumen, curiosidad y trivia
 │     └─ config.js      # URLs (formulario, mapa), logos y fondos
 ├─ AGENTS.md
 └─ design.md            # Sistema de diseño
@@ -56,14 +55,14 @@ Está pensado para un público de 18 años, con prioridad en dispositivos móvil
 
 Para actualizar contenidos sin modificar `App.jsx`:
 
-- `src/data/carreras.js`: carreras, títulos y perfiles.
+- `src/data/carreras.js`: carreras, títulos, resumen, curiosidad y trivia.
 - `src/data/config.js`: URL del formulario, enlaces de Google Maps, logos y fondos.
 
 ## Diseño / UX
 
 - **Experiencia inmersiva:** pantalla completa a `100dvh`, sin scroll de página.
 - **Fondos y overlays:** fotografías reales de los espacios, con velo negro y degradé azul institucional (`#113bb0`) para asegurar el contraste y la legibilidad.
-- **Tipografía:** Zurich para títulos y Poppins para interfaz y lectura, según el Manual de Identidad Visual.
+- **Tipografía:** Archivo Black y Archivo Narrow para títulos y etiquetas, Poppins para interfaz y lectura, todas servidas con `@fontsource`.
 - **Movimiento:** zoom lento (Ken Burns) en los fondos y animaciones de entrada escalonadas.
 - **Componentes:** botones de navegación cuadrados, transparentes y con borde blanco que se invierten al pasar el mouse; botón final del formulario oscuro y en forma de pastilla; menú de carreras en lista vertical con ícono de estrella.
 - **Sin sombras de texto:** no se usa `text-shadow` ni `drop-shadow`.

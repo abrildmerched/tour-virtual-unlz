@@ -17,11 +17,9 @@ const rise = (delay = 0) => ({ animationDelay: `${delay}ms` });
 export default function App() {
   const [step, setStep] = useState(0);
   const [selectedCareerId, setSelectedCareerId] = useState(null);
-  const [showFullPerfil, setShowFullPerfil] = useState(false);
-  const [showAllCareers, setShowAllCareers] = useState(false);
+  const [respuesta, setRespuesta] = useState(null);
   const mainRef = useRef(null);
   const detailRef = useRef(null);
-  const INITIAL_CAREERS = 5;
 
   const backgrounds = config.backgrounds.length > 0 ? config.backgrounds : [
     'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2000',
@@ -32,23 +30,19 @@ export default function App() {
   ];
 
   const avanzar = () => {
-    setShowAllCareers(false);
     setStep((s) => Math.min(s + 1, 4));
   };
   const retroceder = () => {
     if (selectedCareerId) {
       setSelectedCareerId(null);
-      setShowFullPerfil(false);
-      setShowAllCareers(false);
+      setRespuesta(null);
       return;
     }
-    setShowAllCareers(false);
     if (step > 0) setStep((s) => s - 1);
   };
   const reiniciar = () => {
     setSelectedCareerId(null);
-    setShowFullPerfil(false);
-    setShowAllCareers(false);
+    setRespuesta(null);
     setStep(0);
   };
 
@@ -58,6 +52,14 @@ export default function App() {
     }
   }, [step]);
 
+  const selectedCareer = carreras.find((c) => c.id === selectedCareerId);
+
+  useEffect(() => {
+    if (!selectedCareer && mainRef.current) {
+      mainRef.current.scrollTop = 0;
+    }
+  }, [selectedCareer]);
+
   useEffect(() => {
     if (selectedCareer && detailRef.current) {
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -65,7 +67,21 @@ export default function App() {
     }
   }, [selectedCareer]);
 
-  const selectedCareer = carreras.find((c) => c.id === selectedCareerId);
+  // Estilos de cada opción de la trivia según el estado de la respuesta.
+  const estiloOpcion = (idx) => {
+    const base =
+      'f-ui text-left text-sm font-semibold rounded-none border px-3 sm:px-4 py-2.5 sm:py-3 transition-colors duration-300 active:duration-100';
+    if (respuesta === null) {
+      return `${base} border-[#1c1d1f] bg-transparent text-[#1c1d1f] hover:bg-[#113bb0] hover:border-[#113bb0] hover:text-white active:bg-[#113bb0] active:border-[#113bb0] active:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#113bb0]`;
+    }
+    if (idx === selectedCareer.trivia.correcta) {
+      return `${base} border-[#113bb0] bg-[#113bb0] text-white`;
+    }
+    if (idx === respuesta) {
+      return `${base} border-[#1c1d1f]/40 bg-transparent text-[#4d4d4d] line-through`;
+    }
+    return `${base} border-[#1c1d1f]/20 bg-transparent text-[#4d4d4d] opacity-60`;
+  };
 
   const handleFormClick = (e) => {
     if (!config.formUrl) {
@@ -147,7 +163,7 @@ export default function App() {
 
       {/* CONTENIDO */}
       <main ref={mainRef} className="relative z-10 flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden px-5 md:px-16">
-        <div key={step} className="w-full max-w-6xl mx-auto min-h-full flex items-center py-6 md:py-10">
+        <div key={step} className="w-full max-w-6xl mx-auto min-h-full flex items-center py-4 md:py-10">
           <div className="w-full">
 
           {/* PASO 0 */}
@@ -239,51 +255,42 @@ export default function App() {
 
           {/* PASO 3 */}
           {step === 3 && (
-            <div className="flex flex-col gap-4 md:gap-6 w-full max-w-6xl mx-auto">
-              <div className="text-center w-full">
-                <p className="f-cn rise text-sm sm:text-base md:text-xl uppercase tracking-[0.25em] sm:tracking-[0.3em] mb-3 md:mb-4 inline-block bg-[#113bb0] text-white px-3 py-1" style={rise(0)}>
-                  El aula
-                </p>
-                <h2 className="f-title rise text-4xl sm:text-5xl md:text-7xl uppercase leading-[1.05] sm:leading-[1.0] md:leading-[0.95] mb-2 md:mb-3" style={rise(100)}>
-                  ¡Llegaste<br />
-                  al <span className="bg-white text-[#113bb0] px-2 sm:px-4 py-0.5 inline-block leading-[1.15]">aula</span>!
-                </h2>
-                {!selectedCareer && (
-                  <p className="f-ui rise font-normal text-base sm:text-lg" style={rise(200)}>
+            <div className="flex flex-col gap-3 md:gap-6 w-full max-w-6xl mx-auto">
+              {/* Con una carrera abierta no se muestra el encabezado del paso: así la ficha ocupa todo el alto disponible. */}
+              {!selectedCareer && (
+                <div className="text-center w-full">
+                  <p className="f-cn rise text-sm sm:text-base md:text-xl uppercase tracking-[0.25em] sm:tracking-[0.3em] mb-2 md:mb-4 inline-block bg-[#113bb0] text-white px-3 py-1" style={rise(0)}>
+                    El aula
+                  </p>
+                  <h2 className="f-title rise text-4xl sm:text-5xl md:text-7xl uppercase leading-[1.05] sm:leading-[1.0] md:leading-[0.95] mb-2 md:mb-3" style={rise(100)}>
+                    ¡Llegaste<br />
+                    al <span className="bg-white text-[#113bb0] px-2 sm:px-4 py-0.5 inline-block leading-[1.15]">aula</span>!
+                  </h2>
+                  {/* En mobile la instrucción queda solo para lectores de pantalla:
+                      la lista de carreras se explica sola y así la pantalla no scrollea. */}
+                  <p className="f-ui rise sr-only sm:not-sr-only font-normal text-base sm:text-lg" style={rise(200)}>
                     Seleccioná la carrera que más te interese.
                   </p>
-                )}
-              </div>
+                </div>
+              )}
 
               {!selectedCareer && (
                 <div className="w-full">
                   <div className="rise grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 w-full max-w-3xl mx-auto" style={rise(300)}>
-                    {carreras.map((carrera, index) => (
+                    {carreras.map((carrera) => (
                       <button
                         key={carrera.id}
                         onClick={() => {
                           setSelectedCareerId(carrera.id);
-                          setShowFullPerfil(false);
+                          setRespuesta(null);
                         }}
-                        className={`group w-full flex items-center gap-3 px-4 sm:px-5 py-2.5 sm:py-3 border border-[#1c1d1f] rounded-none text-left transition-colors duration-300 bg-white text-[#1c1d1f] hover:bg-[#113bb0] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
-                          index >= INITIAL_CAREERS && !showAllCareers ? 'hidden md:flex' : ''
-                        }`}
+                        className="group w-full flex items-center gap-3 px-4 sm:px-5 py-3 border border-[#1c1d1f] rounded-none text-left transition-colors duration-300 bg-white text-[#1c1d1f] hover:bg-[#113bb0] hover:text-white active:bg-[#113bb0] active:text-white active:duration-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                       >
-                        <i className="fa-regular fa-star transition-colors duration-300 text-[#1c1d1f] group-hover:text-white" aria-hidden="true"></i>
+                        <i className="fa-regular fa-star transition-colors duration-300 text-[#1c1d1f] group-hover:text-white group-active:text-white" aria-hidden="true"></i>
                         <span className="f-ui font-bold uppercase text-xs sm:text-sm tracking-wide">{carrera.nombre}</span>
                       </button>
                     ))}
                   </div>
-                  {!showAllCareers && carreras.length > INITIAL_CAREERS && (
-                    <div className="flex justify-center mt-4 md:hidden">
-                      <button
-                        onClick={() => setShowAllCareers(true)}
-                        className={`${NAV_BTN} border-white`}
-                      >
-                        Ver más carreras <i className="fa-solid fa-chevron-down" aria-hidden="true"></i>
-                      </button>
-                    </div>
-                  )}
                 </div>
               )}
 
@@ -292,49 +299,69 @@ export default function App() {
                   <article
                     ref={detailRef}
                     key={selectedCareer.id}
-                    className="rise bg-white text-[#1c1d1f] p-5 sm:p-6 md:p-8 border-t-4 border-[#113bb0] mx-auto w-full max-w-3xl scroll-mt-4"
-                    style={rise(0)}
+                    className="fade flex flex-col bg-white text-[#1c1d1f] p-5 sm:p-6 md:p-8 border-t-4 border-[#113bb0] mx-auto w-full max-w-3xl max-h-[calc(100dvh-10rem)] md:max-h-[calc(100dvh-17.25rem)] overflow-hidden scroll-mt-4"
                   >
-                    <h3 className="f-title text-2xl sm:text-3xl md:text-4xl uppercase leading-tight mb-2 text-center">{selectedCareer.nombre}</h3>
-                    <p className="f-ui text-sm mb-4 sm:mb-6 text-[#1c1d1f] text-center">{selectedCareer.titulos.join(' · ')}</p>
-                    <h4 className="f-cn text-xs sm:text-sm uppercase tracking-[0.25em] mb-3 sm:mb-4 text-[#113bb0] text-center">
-                      Perfil del graduado
-                    </h4>
-                    <div className="f-ui font-normal leading-relaxed mb-4 sm:mb-6" style={{ color: GRAY }}>
-                      <p className="mb-3 sm:mb-4">{selectedCareer.perfil[0]}</p>
-                      {showFullPerfil &&
-                        selectedCareer.perfil.slice(1).map((p, idx) => (
-                          <p key={idx} className="mb-3 sm:mb-4">
-                            {p}
-                          </p>
-                        ))}
+                    <div className="shrink-0">
+                      <h3 className="f-title text-2xl sm:text-3xl md:text-4xl uppercase leading-tight mb-2 text-left">{selectedCareer.nombre}</h3>
+                      <p className="f-ui text-sm mb-4 sm:mb-6 text-[#1c1d1f] text-left">{selectedCareer.titulos.join(' · ')}</p>
                     </div>
-                    {selectedCareer.perfil.length > 1 && (
-                      <div className="flex justify-center">
-                        <button
-                          onClick={() => setShowFullPerfil((v) => !v)}
-                          className="f-ui font-bold uppercase tracking-widest text-xs rounded-none border border-[#1c1d1f] bg-transparent text-[#1c1d1f] px-3 sm:px-4 py-2 sm:py-3 inline-flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 transition-colors duration-300 hover:bg-[#1c1d1f] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1c1d1f]"
-                        >
-                          <i className={`fa-solid ${showFullPerfil ? 'fa-chevron-up' : 'fa-chevron-down'}`} aria-hidden="true"></i>
-                          {showFullPerfil ? 'Ver menos' : 'Ver perfil completo'}
-                        </button>
+                    <div className="f-ui font-normal leading-relaxed mb-4 sm:mb-6 min-h-0 overflow-y-auto overscroll-contain pr-1 [scrollbar-width:thin]" style={{ color: GRAY }}>
+                      {/* La etiqueta scrollea con el resumen: solo el nombre, los títulos y los botones quedan fijos. */}
+                      <h4 className="f-cn text-xs sm:text-sm uppercase tracking-widest mb-2 text-[#113bb0]">
+                        Perfil del egresado
+                      </h4>
+                      <p className="mb-5 sm:mb-6">{selectedCareer.resumen}</p>
+
+                      <div className="mb-5 sm:mb-6">
+                        <h4 className="f-cn text-xs sm:text-sm uppercase tracking-widest mb-2 text-[#113bb0]">
+                          ¿Sabías que?
+                        </h4>
+                        <p>{selectedCareer.curiosidad}</p>
                       </div>
-                    )}
-                    <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+
+                      <div className="border-t border-[#1c1d1f]/15 pt-4 sm:pt-5">
+                        <h4 className="f-cn text-xs sm:text-sm uppercase tracking-widest mb-2 text-[#113bb0]">
+                          Trivia
+                        </h4>
+                        <p className="f-ui font-bold text-sm sm:text-base mb-3 text-[#1c1d1f]">{selectedCareer.trivia.pregunta}</p>
+                        <div className="flex flex-col gap-2">
+                          {selectedCareer.trivia.opciones.map((opcion, idx) => (
+                            <button
+                              key={idx}
+                              type="button"
+                              onClick={() => setRespuesta(idx)}
+                              disabled={respuesta !== null}
+                              className={estiloOpcion(idx)}
+                            >
+                              {opcion}
+                            </button>
+                          ))}
+                        </div>
+                        <p className="f-ui text-sm mt-3" style={{ color: GRAY }} aria-live="polite">
+                          {respuesta !== null && (
+                            <>
+                              <span className="font-bold" style={{ color: BLUE }}>
+                                {respuesta === selectedCareer.trivia.correcta ? '¡Correcto!' : 'Casi.'}
+                              </span>{' '}
+                              {selectedCareer.trivia.explicacion}
+                            </>
+                          )}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap justify-center gap-2 sm:gap-3 shrink-0">
                       <button
                         onClick={() => {
                           setSelectedCareerId(null);
-                          setShowFullPerfil(false);
-                          setShowAllCareers(false);
+                          setRespuesta(null);
                         }}
-                        className="f-ui font-bold uppercase tracking-widest text-xs rounded-none border border-[#1c1d1f] bg-transparent text-[#1c1d1f] px-3 sm:px-5 py-2 sm:py-3 inline-flex items-center gap-2 sm:gap-3 transition-colors duration-300 hover:bg-[#1c1d1f] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1c1d1f]"
+                        className="f-ui font-bold uppercase tracking-widest text-xs rounded-none border border-[#1c1d1f] bg-transparent text-[#1c1d1f] px-3 sm:px-5 py-2 sm:py-3 inline-flex items-center gap-2 sm:gap-3 transition-colors duration-300 hover:bg-[#1c1d1f] hover:text-white active:bg-[#1c1d1f] active:text-white active:duration-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1c1d1f]"
                       >
-                        <i className="fa-solid fa-list" aria-hidden="true"></i> Ver todas las carreras
+                        <i className="fa-solid fa-arrow-left" aria-hidden="true"></i> Ver todas las carreras
                       </button>
                       <button
                         onClick={avanzar}
-                        className="f-ui font-bold uppercase tracking-widest text-xs rounded-none border bg-transparent px-3 sm:px-5 py-2 sm:py-3 inline-flex items-center gap-2 sm:gap-3 transition-colors duration-300 hover:bg-[#113bb0] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#113bb0]"
-                        style={{ borderColor: BLUE, color: BLUE }}
+                        className="f-ui font-bold uppercase tracking-widest text-xs rounded-none border border-[#113bb0] bg-transparent text-[#113bb0] px-3 sm:px-5 py-2 sm:py-3 inline-flex items-center gap-2 sm:gap-3 transition-colors duration-300 hover:bg-[#113bb0] hover:text-white active:bg-[#113bb0] active:text-white active:duration-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#113bb0]"
                       >
                         Siguiente paso <i className="fa-solid fa-arrow-right" aria-hidden="true"></i>
                       </button>
@@ -362,8 +389,8 @@ export default function App() {
               </div>
 
               <div className="rise bg-white text-[#1c1d1f] p-6 sm:p-8 md:p-10 flex flex-col items-center text-center border-t-4 border-[#113bb0] mx-auto w-full max-w-md md:max-w-none" style={rise(260)}>
-                <span className="f-ui font-bold text-sm mb-2 flex items-center gap-2 text-[#113bb0]">
-                  Completar y enviar formulario <i className="fa-solid fa-chevron-down text-xs" aria-hidden="true"></i>
+                <span className="f-ui font-bold text-sm mb-2 flex items-center text-[#113bb0]">
+                  Completar y enviar formulario
                 </span>
                 <a
                   href={config.formUrl || '#'}
@@ -389,7 +416,12 @@ export default function App() {
           </div>
         </div>
       </main>
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-10 bg-gradient-to-t from-[#113bb0]/80 to-transparent md:hidden" />
+
+      {/* FOOTER */}
+      {/* Banda de cierre, sin contenido: le da aire al pie para que la ficha no toque el borde de la pantalla. */}
+      <footer aria-hidden="true" className="relative z-10 shrink-0 px-5 pb-4 md:px-16 md:pb-6">
+        <div className="h-px w-full bg-white/20" />
+      </footer>
     </div>
   );
 }
