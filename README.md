@@ -2,7 +2,7 @@
 
 Recorrido virtual de 5 pasos para ingresantes de la Facultad de Ciencias Sociales de la Universidad Nacional de Lomas de Zamora. Una experiencia de pantalla única, con fondos fotográficos de los espacios reales, tipografías e identidad visual institucionales y navegación paso a paso hasta el formulario de contacto.
 
-**Demo en producción:** [https://tour-virtual-unlz.netlify.app/](https://tour-virtual-unlz.netlify.app/)
+**Demo en producción:** [https://tour-virtual-unlz.vercel.app/](https://tour-virtual-unlz.vercel.app/)
 
 ## Sobre el proyecto
 
@@ -28,7 +28,7 @@ Está pensado para un público de 18 años, con prioridad en dispositivos móvil
 - [Font Awesome 7 Free](https://fontawesome.com/): íconos (únicamente)
 - [Poppins](https://fonts.google.com/specimen/Poppins): tipografía complementaria (interfaz y textos de lectura)
 - [Archivo Black](https://fonts.google.com/specimen/Archivo+Black) y [Archivo Narrow](https://fonts.google.com/specimen/Archivo+Narrow): tipografías de títulos y etiquetas, servidas localmente con `@fontsource`
-- [Netlify](https://www.netlify.com/): despliegue
+- [Vercel](https://vercel.com/): despliegue
 
 ## Estructura del proyecto
 
