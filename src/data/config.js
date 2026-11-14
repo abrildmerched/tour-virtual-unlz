@@ -5,9 +5,9 @@
 
 export const config = {
   formUrl: 'https://forms.gle/eoUXzAEEoA9TPXzk9',
-  mapsUrl: 'https://maps.app.goo.gl/6PjVvx19rHHq2TaSA',
+  mapsUrl: 'https://maps.app.goo.gl/hUy9LfmQVrxRGkGe7',
   mapEmbedUrl:
-    'https://www.google.com/maps?q=Universidad+Nacional+de+Lomas+de+Zamora&output=embed',
+  'https://www.google.com/maps?q=loc:-34.7758222,-58.4559869&output=embed',
   logos: {
     whiteCentered: '/logos/LOGO CENTRADO BLANCO - DIGITAL-01.png',
     azulChico: '/logos/LOGO CENTRADO AZUL - DIGITAL-01.png',
