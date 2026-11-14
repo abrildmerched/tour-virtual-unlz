@@ -12,10 +12,11 @@ Está pensado para un público de 18 años, con prioridad en dispositivos móvil
 
 ## Funcionalidades
 
-- **Recorrido en 5 pasos:** Bienvenida → Predio y mapa → Entrada a Sociales → Selección de carrera → Contacto.
+- **Recorrido en 5 pasos:** Bienvenida → Predio y mapa → Entrada a Sociales (con el juego "Adiviná la zona") → Selección de carrera → Contacto.
 - **Mapa interactivo:** Google Maps embebido, con enlace directo para abrirlo en la aplicación.
 - **Oferta académica completa:** las 10 carreras de la Facultad, con sus títulos (Licenciatura, Profesorado) y el perfil del egresado/a.
 - **Ficha con enganche:** cada carrera muestra el perfil del egresado, un dato cultural bajo "¿Sabías que?" y una trivia de opción múltiple con explicación, pensada para ingresantes.
+- **Adiviná la zona (dentro del paso Sociales):** tarjeta con el mismo marco que la ficha de carrera, una ronda por zona válida (4 con el contenido actual), opción múltiple, dato curioso después de cada respuesta y puntaje final. Usa la misma trivia que la ficha de carrera. El paso tiene un único botón, "Descubramos la facultad", que abre el juego: hay que responder todas las rondas para llegar al Aula. No hay botón para salir del juego; el "Volver" del header devuelve a la pantalla de Sociales.
 - **Navegación clara:** botón "Volver", indicador de progreso (01 / 05) y avance paso a paso.
 - **Formulario de contacto:** redirección a un Google Forms (nombre, apellido, institución educativa, carrera de interés y email), configurable sin tocar el código.
 - **Responsive:** diseño optimizado para móvil y escritorio.
@@ -36,6 +37,7 @@ Está pensado para un público de 18 años, con prioridad en dispositivos móvil
 /
 ├─ public/
 │  ├─ img/        # Fondos fotográficos del recorrido
+│  ├─ img/zonas/  # Fotos de las zonas del juego "Adiviná la zona"
 │  ├─ logos/      # Logos institucionales UNLZ
 │  ├─ _redirects  # Configuración SPA para Netlify
 │  └─ favicon.svg
@@ -48,6 +50,7 @@ Está pensado para un público de 18 años, con prioridad en dispositivos móvil
 │  ├─ main.jsx          # Punto de entrada
 │  └─ data/
 │     ├─ carreras.js    # Carreras, títulos, resumen, curiosidad y trivia
+│     ├─ zonas.js       # Zonas del juego, pistas y datos curiosos
 │     └─ config.js      # URLs (formulario, mapa), logos y fondos
 ├─ AGENTS.md
 └─ design.md            # Sistema de diseño
@@ -56,6 +59,7 @@ Está pensado para un público de 18 años, con prioridad en dispositivos móvil
 Para actualizar contenidos sin modificar `App.jsx`:
 
 - `src/data/carreras.js`: carreras, títulos, resumen, curiosidad y trivia.
+- `src/data/zonas.js`: zonas del juego "Adiviná la zona" (dentro del paso Sociales), con sus fotos, pistas y datos curiosos. Una zona está completa cuando todos sus campos tienen texto y ninguno empieza con `COMPLETAR`; con 2 o más zonas completas el botón "Descubramos la facultad" abre el juego, y con menos avanza directo al Aula.
 - `src/data/config.js`: URL del formulario, enlaces de Google Maps, logos y fondos.
 
 ## Diseño / UX
